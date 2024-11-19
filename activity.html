@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TriangleT - Collaborative Learning Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo"><a href="index.html"></a>TriangleT</div>
+        <ul class="nav-links">
+          <li><a href="members.html">Home</a></li>
+          <li><a href="dms.html">Dm's</a></li>
+          <li><a href="activity.html">Activity</a></li>
+          <li><a href="booKmarK.html">BooKmarK</a></li>
+          <li><a href="meet.html">Meet</a></li>
+          <!-- Profile Icon and Dropdown Menu -->
+<li class="profile">
+  <a href="javascript:void(0)" id="profileIcon">
+    <div class="profile-icon">P</div>
+  </a>
+  <!-- Profile Dropdown Menu -->
+  <div class="profile-dropdown" id="profileDropdown">
+    <div class="profile-info">
+      <p><strong>John Doe</strong></p>
+      <p>john@example.com</p>
+    </div>
+    <button id="logoutBtn">Logout</button>
+  </div>
+</li>
+
+
+
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section id="activity" class="activity">
+    <div class="container">
+      <div class="activity-header">
+        <h2 class="section-title">Your Activity</h2>
+        <button class="notification-btn">
+          <span class="notification-icon">🔔</span> Notifications
+        </button>
+      </div>
+      
+      <!-- Activity Feed -->
+      <div class="activity-feed">
+        <div class="activity-item">
+          <span class="activity-time">2 hours ago</span>
+          <p><strong>John Doe</strong> started a new group project: <strong>AI Research</strong></p>
+        </div>
+        <div class="activity-item">
+          <span class="activity-time">5 hours ago</span>
+          <p><strong>Jane Smith</strong> commented on your task: <strong>Research on AI Ethics</strong></p>
+        </div>
+        <div class="activity-item">
+          <span class="activity-time">1 day ago</span>
+          <p><strong>Team Leader</strong> added you to the <strong>Machine Learning</strong> project group</p>
+        </div>
+      </div>
+
+      <!-- Upcoming Tasks / Deadlines -->
+      <div class="upcoming-tasks">
+        <h3>Upcoming Tasks & Deadlines</h3>
+        <div class="task-item">
+          <span class="task-title">Research on AI Ethics</span>
+          <div class="progress-bar">
+            <div class="progress" style="width: 60%;"></div>
+          </div>
+          <span class="due-date">Due: 12/12/2024</span>
+        </div>
+        <div class="task-item">
+          <span class="task-title">AI Algorithm Development</span>
+          <div class="progress-bar">
+            <div class="progress" style="width: 40%;"></div>
+          </div>
+          <span class="due-date">Due: 15/12/2024</span>
+        </div>
+      </div>
+
+      <!-- Real-Time Activity Update Section -->
+      <div class="real-time-activity">
+        <h3>Real-Time Activity</h3>
+        <div class="real-time-feed">
+          <div class="real-time-item">
+            <p><strong>Mark</strong> just finished his task: <strong>AI Ethics Review</strong></p>
+          </div>
+          <div class="real-time-item">
+            <p><strong>Lisa</strong> started a new project: <strong>Blockchain Research</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Progress Section -->
+      <div class="personal-progress">
+        <h3>Your Progress</h3>
+        <div class="progress-bar">
+          <div class="progress" style="width: 70%;"></div>
+        </div>
+        <span class="progress-text">Completed 70% of your tasks!</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2024 TriangleT. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="activity.js"></script>
+  <script>
+    // JavaScript to toggle profile dropdown
+const profileIcon = document.getElementById("profileIcon");
+const profileDropdown = document.getElementById("profileDropdown");
+const logoutBtn = document.getElementById("logoutBtn");
+
+// Toggle the profile dropdown
+profileIcon.addEventListener("click", () => {
+  profileDropdown.classList.toggle("show");
+});
+
+// Simulate logout
+logoutBtn.addEventListener("click", () => {
+  alert("Logged out!");
+  // You can add actual logout functionality here
+});
+
+// Close the dropdown if clicked outside
+window.addEventListener("click", (event) => {
+  if (!profileIcon.contains(event.target)) {
+    profileDropdown.classList.remove("show");
+  }
+});
+
+  </script>
+</body>
+</html>

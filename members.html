@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TriangleT - Collaborative Learning Platform</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">TriangleT</div>
+        <ul class="nav-links">
+          <li><a href="members.html">Home</a></li>
+          <li><a href="dms.html">Dm's</a></li>
+          <li><a href="activity.html">Activity</a></li>
+          <li><a href="booKmarK.html">BooKmarK</a></li>
+          <li><a href="meet.html">Meet</a></li>
+          <li class="profile">
+            <a href="javascript:void(0)" id="profileIcon"><div class="profile-icon">P</div></a>
+            <!-- Profile Dropdown Menu -->
+            <div class="profile-dropdown" id="profileDropdown">
+              <div class="profile-info">
+                <p><strong>John Doe</strong></p>
+                <p>john@example.com</p>
+              </div>
+              <button id="logoutBtn">Logout</button>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="members" class="members">
+    <div class="container">
+      <h2 class="section-title">Team Members</h2>
+      <!-- Add Member Button -->
+      <button id="addMemberBtn" class="add-member-btn">+ Add Member</button>
+  
+      <!-- Members List -->
+      <table class="members-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Semester</th>
+          </tr>
+        </thead>
+        <tbody id="membersList">
+          <!-- Dynamic rows will be added here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal for Adding Members -->
+    <div id="addMemberModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <h3>Add Team Member</h3>
+        <form id="addMemberForm">
+          <div class="form-group">
+            <label for="memberName">Name</label>
+            <input type="text" id="memberName" name="memberName" required>
+          </div>
+          <div class="form-group">
+            <label for="memberSem">Semester</label>
+            <input type="number" id="memberSem" name="memberSem" required>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="submit-btn">Add Member</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Math Game -->
+    <section id="math-game">
+      <h2>Math Game: Multi-Level Challenge</h2>
+      <div id="level-select">
+        <h2>Select a Level</h2>
+        <button class="btn btn-level" onclick="startMathGame(1)">Level 1: Easy</button>
+        <button class="btn btn-level" onclick="startMathGame(2)">Level 2: Moderate</button>
+        <button class="btn btn-level" onclick="startMathGame(3)">Level 3: Hardest</button>
+      </div>
+      <div class="quiz-container" style="display: none;">
+        <p class="question" id="math-question"></p>
+        <div class="options">
+          <button id="math-option1"></button>
+          <button id="math-option2"></button>
+          <button id="math-option3"></button>
+          <button id="math-option4"></button>
+        </div>
+        <p class="feedback" id="math-feedback"></p>
+        <button id="math-restart" onclick="restartMathGame()">Restart Game</button>
+      </div>
+    </section>
+
+    <!-- Tech Quiz Game -->
+    <section id="tech-quiz-game">
+      <h2>Tech Quiz Game: Multi-Level Challenge</h2>
+      <div id="tech-level-select">
+        <h2>Select a Level</h2>
+        <button class="btn btn-level" onclick="startTechGame(1)">Level 1: Easy</button>
+        <button class="btn btn-level" onclick="startTechGame(2)">Level 2: Moderate</button>
+        <button class="btn btn-level" onclick="startTechGame(3)">Level 3: Hardest</button>
+      </div>
+      <div class="quiz-container" style="display: none;">
+        <p class="question" id="tech-question"></p>
+        <div class="options">
+          <button id="tech-option1"></button>
+          <button id="tech-option2"></button>
+          <button id="tech-option3"></button>
+          <button id="tech-option4"></button>
+        </div>
+        <p class="feedback" id="tech-feedback"></p>
+        <button id="tech-restart" onclick="restartTechGame()">Restart Game</button>
+      </div>
+    </section>
+  </section>
+
+  <script src="members.js"></script>
+  <script>
+    // JavaScript to toggle profile dropdown
+    const profileIcon = document.getElementById("profileIcon");
+    const profileDropdown = document.getElementById("profileDropdown");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Toggle the profile dropdown
+    profileIcon.addEventListener("click", () => {
+      profileDropdown.classList.toggle("show");
+    });
+
+    // Simulate logout
+    logoutBtn.addEventListener("click", () => {
+      alert("Logged out!");
+      // You can add actual logout functionality here
+    });
+
+    // Close the dropdown if clicked outside
+    window.addEventListener("click", (event) => {
+      if (!profileIcon.contains(event.target)) {
+        profileDropdown.classList.remove("show");
+      }
+    });
+
+    // Math Game JavaScript
+    const mathQuestions = {
+      1: [
+        { question: "2 + 2", options: [3, 4, 5, 6], correct: 1 },
+        { question: "3 + 5", options: [6, 7, 8, 9], correct: 2 }
+      ],
+      2: [
+        { question: "12 + 15", options: [25, 26, 27, 28], correct: 0 },
+        { question: "20 - 10", options: [8, 9, 10, 11], correct: 2 }
+      ],
+      3: [
+        { question: "The roots of the quadratic equation x² - 3x + 2 = 0 are?", options: ["1, 2", "2, 1", "3, 2", "1, 3"], correct: 0 },
+        { question: "If a and b are roots of the equation x² + 5x + 6 = 0, then the value of a² + b² is?", options: ["7", "11", "13", "14"], correct: 1 },
+        { question: "If a and b are the roots of the equation x² - 7x + 12 = 0, then the value of a³ + b³ is?", options: ["371", "382", "383", "384"], correct: 0 }
+      ]
+    
+    };
+    let currentMathLevel = 1;
+    let currentMathQuestionIndex = 0;
+    let mathQuizContainer = document.querySelector("#math-game .quiz-container");
+    let mathLevelSelectContainer = document.getElementById("level-select");
+    let mathQuestionEl = document.getElementById("math-question");
+    let mathOptionsEl = document.querySelectorAll("#math-game .options button");
+    let mathFeedbackEl = document.getElementById("math-feedback");
+    let mathRestartBtn = document.getElementById("math-restart");
+
+    function startMathGame(level) {
+      currentMathLevel = level;
+      currentMathQuestionIndex = 0;
+      mathFeedbackEl.textContent = "";
+      mathRestartBtn.style.display = "none";
+      mathLevelSelectContainer.style.display = "none";
+      mathQuizContainer.style.display = "block";
+      displayMathQuestion();
+    }
+
+    function displayMathQuestion() {
+      const levelQuestions = mathQuestions[currentMathLevel];
+      const currentQuestion = levelQuestions[currentMathQuestionIndex];
+      mathQuestionEl.textContent = currentQuestion.question;
+      mathOptionsEl.forEach((btn, index) => {
+        btn.textContent = currentQuestion.options[index];
+        btn.style.backgroundColor = "#007bff";
+        btn.disabled = false;
+        btn.onclick = () => checkMathAnswer(index);
+      });
+    }
+
+    function checkMathAnswer(selectedIndex) {
+      const levelQuestions = mathQuestions[currentMathLevel];
+      const currentQuestion = levelQuestions[currentMathQuestionIndex];
+      if (selectedIndex === currentQuestion.correct) {
+        mathFeedbackEl.textContent = "Correct! 🎉";
+        mathFeedbackEl.style.color = "green";
+      } else {
+        mathFeedbackEl.textContent = `Wrong! Correct answer: ${
+          currentQuestion.options[currentQuestion.correct]
+        }`;
+        mathFeedbackEl.style.color = "red";
+      }
+      mathOptionsEl.forEach((btn, index) => {
+        btn.disabled = true;
+        btn.style.backgroundColor =
+          index === currentQuestion.correct ? "green" : "red";
+      });
+      currentMathQuestionIndex++;
+      if (currentMathQuestionIndex < levelQuestions.length) {
+        setTimeout(displayMathQuestion, 2000);
+      } else {
+        setTimeout(endMathGame, 2000);
+      }
+    }
+
+    function endMathGame() {
+      mathFeedbackEl.textContent = "Game Over! 🎉 Restart to play again.";
+      mathFeedbackEl.style.color = "blue";
+      mathRestartBtn.style.display = "block";
+    }
+
+    function restartMathGame() {
+      mathQuizContainer.style.display = "none";
+      mathLevelSelectContainer.style.display = "block";
+    }
+
+    // Tech Quiz JavaScript
+    const techQuestions = {
+      1: [
+        { question: "HTML stands for?", options: ["Hypertext Markup Language", "High Tech Machine Language", "Hyperlink Text Marking Language", "High Technology Markup Language"], correct: 0 },
+        { question: "CSS stands for?", options: ["Computer Style Sheets", "Cascading Style Sheets", "Creative Style Sheets", "Coded Style Sheets"], correct: 1 }
+      ],
+      2: [
+        { question: "What does API stand for?", options: ["Active Programming Interface", "Application Programming Interface", "Active Page Interface", "Automated Programming Interface"], correct: 1 },
+        { question: "What is the full form of CPU?", options: ["Central Processing Unit", "Central Program Unit", "Central Power Unit", "Computer Processing Unit"], correct: 0 }
+      ],
+      3: [
+        { question: "What is the time complexity of quicksort?", options: ["O(n^2)", "O(n log n)", "O(log n)", "O(n)"], correct: 1 },
+        { question: "What is the primary purpose of the 'this' keyword in JavaScript?", options: ["To reference the function", "To refer to the current object", "To define a function scope", "To initiate an event"], correct: 1 },
+        { question: "Which of these is NOT a valid JavaScript data type?", options: ["undefined", "boolean", "character", "symbol"], correct: 2 }
+      ]
+    };
+
+    let currentTechLevel = 1;
+    let currentTechQuestionIndex = 0;
+    let techQuizContainer = document.querySelector("#tech-quiz-game .quiz-container");
+    let techLevelSelectContainer = document.getElementById("tech-level-select");
+    let techQuestionEl = document.getElementById("tech-question");
+    let techOptionsEl = document.querySelectorAll("#tech-quiz-game .options button");
+    let techFeedbackEl = document.getElementById("tech-feedback");
+    let techRestartBtn = document.getElementById("tech-restart");
+
+    function startTechGame(level) {
+      currentTechLevel = level;
+      currentTechQuestionIndex = 0;
+      techFeedbackEl.textContent = "";
+      techRestartBtn.style.display = "none";
+      techLevelSelectContainer.style.display = "none";
+      techQuizContainer.style.display = "block";
+      displayTechQuestion();
+    }
+
+    function displayTechQuestion() {
+      const levelQuestions = techQuestions[currentTechLevel];
+      const currentQuestion = levelQuestions[currentTechQuestionIndex];
+      techQuestionEl.textContent = currentQuestion.question;
+      techOptionsEl.forEach((btn, index) => {
+        btn.textContent = currentQuestion.options[index];
+        btn.style.backgroundColor = "#007bff";
+        btn.disabled = false;
+        btn.onclick = () => checkTechAnswer(index);
+      });
+    }
+
+    function checkTechAnswer(selectedIndex) {
+      const levelQuestions = techQuestions[currentTechLevel];
+      const currentQuestion = levelQuestions[currentTechQuestionIndex];
+      if (selectedIndex === currentQuestion.correct) {
+        techFeedbackEl.textContent = "Correct! 🎉";
+        techFeedbackEl.style.color = "green";
+      } else {
+        techFeedbackEl.textContent = `Wrong! Correct answer: ${
+          currentQuestion.options[currentQuestion.correct]
+        }`;
+        techFeedbackEl.style.color = "red";
+      }
+      techOptionsEl.forEach((btn, index) => {
+        btn.disabled = true;
+        btn.style.backgroundColor =
+          index === currentQuestion.correct ? "green" : "red";
+      });
+      currentTechQuestionIndex++;
+      if (currentTechQuestionIndex < levelQuestions.length) {
+        setTimeout(displayTechQuestion, 2000);
+      } else {
+        setTimeout(endTechGame, 2000);
+      }
+    }
+
+    function endTechGame() {
+      techFeedbackEl.textContent = "Game Over! 🎉 Restart to play again.";
+      techFeedbackEl.style.color = "blue";
+      techRestartBtn.style.display = "block";
+    }
+
+    function restartTechGame() {
+      techQuizContainer.style.display = "none";
+      techLevelSelectContainer.style.display = "block";
+    }
+  </script>
+</body>
+</html>

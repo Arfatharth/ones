@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TriangleT - Collaborative Learning Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo"><a href="index.html"></a>TriangleT</div>
+        <ul class="nav-links">
+          <li><a href="members.html">Home</a></li>
+          <li><a href="dms.html">Dm's</a></li>
+          <li><a href="activity.html">Activity</a></li>
+          <li><a href="booKmarK.html">BooKmarK</a></li>
+          <li><a href="meet.html">Meet</a></li>
+          <!-- Profile Icon and Dropdown Menu -->
+<li class="profile">
+  <a href="javascript:void(0)" id="profileIcon">
+    <div class="profile-icon">P</div>
+  </a>
+  <!-- Profile Dropdown Menu -->
+  <div class="profile-dropdown" id="profileDropdown">
+    <div class="profile-info">
+      <p><strong>John Doe</strong></p>
+      <p>john@example.com</p>
+    </div>
+    <button id="logoutBtn">Logout</button>
+  </div>
+</li>
+
+
+
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="dms-container">
+    <!-- Header -->
+    <div class="dms-header">Direct Messages</div>
+  
+    <!-- DM Body -->
+    <div class="dms-body">
+      <!-- Members List (Left Section) -->
+      <div class="members-list">
+        <div class="search-box">
+          <input type="text" id="member-search" placeholder="Search members...">
+        </div>
+        <ul id="member-list">
+          <!-- Member list items will populate here -->
+          <li class="member-item">Alice</li>
+          <li class="member-item">Bob</li>
+          <li class="member-item">Charlie</li>
+        </ul>
+        <button id="add-member-button" class="add-member-btn">+ Add Contact</button>
+      </div>
+  
+      <!-- Chat Area (Right Section) -->
+      <div class="chat-area">
+        <div id="chat-content">
+          <!-- Chat messages will appear here -->
+          <div class="message received">Hello! How are you?</div>
+          <div class="message sent">I'm good, thanks! How about you?</div>
+        </div>
+        <div class="message-input">
+          <input type="text" id="message-input" placeholder="Type a message...">
+          <button id="send-button">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<script src="dms.js"></script>  
+<script>
+  // JavaScript to toggle profile dropdown
+const profileIcon = document.getElementById("profileIcon");
+const profileDropdown = document.getElementById("profileDropdown");
+const logoutBtn = document.getElementById("logoutBtn");
+
+// Toggle the profile dropdown
+profileIcon.addEventListener("click", () => {
+  profileDropdown.classList.toggle("show");
+});
+
+// Simulate logout
+logoutBtn.addEventListener("click", () => {
+  alert("Logged out!");
+  // You can add actual logout functionality here
+});
+
+// Close the dropdown if clicked outside
+window.addEventListener("click", (event) => {
+  if (!profileIcon.contains(event.target)) {
+    profileDropdown.classList.remove("show");
+  }
+});
+
+</script>
+</body>
+</html>

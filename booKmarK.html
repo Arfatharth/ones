@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TriangleT - Collaborative Learning Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo"><a href="index.html"></a>TriangleT</div>
+        <ul class="nav-links">
+          <li><a href="members.html">Home</a></li>
+          <li><a href="dms.html">Dm's</a></li>
+          <li><a href="activity.html">Activity</a></li>
+          <li><a href="booKmarK.html">BooKmarK</a></li>
+          <li><a href="meet.html">Meet</a></li>
+          <!-- Profile Icon and Dropdown Menu -->
+<li class="profile">
+  <a href="javascript:void(0)" id="profileIcon">
+    <div class="profile-icon">P</div>
+  </a>
+  <!-- Profile Dropdown Menu -->
+  <div class="profile-dropdown" id="profileDropdown">
+    <div class="profile-info">
+      <p><strong>John Doe</strong></p>
+      <p>john@example.com</p>
+    </div>
+    <button id="logoutBtn">Logout</button>
+  </div>
+</li>
+
+
+
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section id="bookmarks" class="bookmarks">
+    <div class="container">
+      <div class="bookmark-header">
+        <h2 class="section-title">Your Bookmarks</h2>
+        <button class="add-bookmark-btn" id="addBookmarkBtn">Add Bookmark</button>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-bookmarks">
+        <input type="text" placeholder="Search Bookmarks..." id="searchInput">
+      </div>
+
+      <!-- Bookmark List -->
+      <div class="bookmark-list">
+        <div class="bookmark-item">
+          <div class="bookmark-info">
+            <h3 class="bookmark-title">AI Research Papers</h3>
+            <p class="bookmark-description">A collection of recent papers on artificial intelligence</p>
+            <a href="https://example.com" class="bookmark-link">Visit</a>
+          </div>
+          <div class="bookmark-actions">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </div>
+        <div class="bookmark-item">
+          <div class="bookmark-info">
+            <h3 class="bookmark-title">Python Documentation</h3>
+            <p class="bookmark-description">Official Python documentation for developers</p>
+            <a href="https://docs.python.org" class="bookmark-link">Visit</a>
+          </div>
+          <div class="bookmark-actions">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Bookmark Modal -->
+      <div id="bookmarkModal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h2>Add a Bookmark</h2>
+          <form id="bookmarkForm">
+            <label for="title">Bookmark Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="url">Bookmark URL:</label>
+            <input type="url" id="url" name="url" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <button type="submit">Add Bookmark</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+<script src="booKmarK.js"></script>
+<script>
+  // JavaScript to toggle profile dropdown
+const profileIcon = document.getElementById("profileIcon");
+const profileDropdown = document.getElementById("profileDropdown");
+const logoutBtn = document.getElementById("logoutBtn");
+
+// Toggle the profile dropdown
+profileIcon.addEventListener("click", () => {
+  profileDropdown.classList.toggle("show");
+});
+
+// Simulate logout
+logoutBtn.addEventListener("click", () => {
+  alert("Logged out!");
+  // You can add actual logout functionality here
+});
+
+// Close the dropdown if clicked outside
+window.addEventListener("click", (event) => {
+  if (!profileIcon.contains(event.target)) {
+    profileDropdown.classList.remove("show");
+  }
+});
+
+</script>
+</body>
+</html>

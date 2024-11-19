@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Quiz Game: Multi-Level Challenge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 600px;
+      text-align: center;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    #level-select {
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .btn-level {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-level:hover {
+      background-color: #0056b3;
+    }
+
+    .quiz-container {
+      display: none;
+    }
+
+    .question {
+      font-size: 18px;
+      margin: 20px 0;
+    }
+
+    .options button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .options button:hover {
+      background-color: #0056b3;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    #restart {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #restart:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tech Quiz Game: Multi-Level Challenge</h1>
+    <div id="level-select">
+      <h2>Select a Level</h2>
+      <button class="btn btn-level" onclick="startGame(1)">Level 1: Easy</button>
+      <button class="btn btn-level" onclick="startGame(2)">Level 2: Moderate</button>
+      <button class="btn btn-level" onclick="startGame(3)">Level 3: Hardest</button>
+    </div>
+    <div class="quiz-container">
+      <p class="question" id="question">Question appears here</p>
+      <div class="options">
+        <button id="option1"></button>
+        <button id="option2"></button>
+        <button id="option3"></button>
+        <button id="option4"></button>
+      </div>
+      <p class="feedback" id="feedback"></p>
+      <button id="restart" onclick="restartGame()">Restart Game</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = {
+      1: [
+        {
+          question: "Which language is known as the language of the web?",
+          options: ["Python", "C++", "JavaScript", "Java"],
+          correct: 2,
+        },
+        {
+          question: "Which of these is a database management system?",
+          options: ["MySQL", "Java", "Python", "HTML"],
+          correct: 0,
+        },
+      ],
+      2: [
+        {
+          question: "Which algorithm is used for sorting?",
+          options: ["Merge Sort", "Merge Split", "Split Sort", "Quick Merge"],
+          correct: 0,
+        },
+        {
+          question: "What does CSS stand for?",
+          options: ["Cascading Style Sheets", "Central Style Sheets", "Creative Style Sheets", "Computer Style Sheets"],
+          correct: 0,
+        },
+      ],
+      3: [
+        {
+          question: "What is Big O notation used for?",
+          options: ["Memory Complexity", "Time Complexity", "Space Complexity", "All of the above"],
+          correct: 3,
+        },
+        {
+          question: "Which of these is a statically typed language?",
+          options: ["Java", "JavaScript", "Python", "Ruby"],
+          correct: 0,
+        },
+      ],
+    };
+
+    let currentLevel = 1;
+    let currentQuestionIndex = 0;
+    let quizContainer = document.querySelector(".quiz-container");
+    let levelSelectContainer = document.getElementById("level-select");
+    let questionEl = document.getElementById("question");
+    let optionsEl = document.querySelectorAll(".options button");
+    let feedbackEl = document.getElementById("feedback");
+    let restartBtn = document.getElementById("restart");
+
+    function startGame(level) {
+      currentLevel = level;
+      currentQuestionIndex = 0;
+      feedbackEl.textContent = "";
+      restartBtn.style.display = "none";
+      levelSelectContainer.style.display = "none";
+      quizContainer.style.display = "block";
+      displayQuestion();
+    }
+
+    function displayQuestion() {
+      const levelQuestions = questions[currentLevel];
+      const currentQuestion = levelQuestions[currentQuestionIndex];
+      questionEl.textContent = currentQuestion.question;
+      optionsEl.forEach((btn, index) => {
+        btn.textContent = currentQuestion.options[index];
+        btn.style.backgroundColor = "#007bff";
+        btn.disabled = false;
+        btn.onclick = () => checkAnswer(index);
+      });
+    }
+
+    function checkAnswer(selectedIndex) {
+      const levelQuestions = questions[currentLevel];
+      const currentQuestion = levelQuestions[currentQuestionIndex];
+      if (selectedIndex === currentQuestion.correct) {
+        feedbackEl.textContent = "Correct! 🎉";
+        feedbackEl.style.color = "green";
+      } else {
+        feedbackEl.textContent = `Wrong! Correct answer: ${
+          currentQuestion.options[currentQuestion.correct]
+        }`;
+        feedbackEl.style.color = "red";
+      }
+      optionsEl.forEach((btn, index) => {
+        btn.disabled = true;
+        btn.style.backgroundColor =
+          index === currentQuestion.correct ? "green" : "red";
+      });
+      currentQuestionIndex++;
+      if (currentQuestionIndex < levelQuestions.length) {
+        setTimeout(displayQuestion, 2000);
+      } else {
+        setTimeout(endGame, 2000);
+      }
+    }
+
+    function endGame() {
+      feedbackEl.textContent = "Game Over! 🎉 Restart to play again.";
+      feedbackEl.style.color = "blue";
+      restartBtn.style.display = "block";
+    }
+
+    function restartGame() {
+      quizContainer.style.display = "none";
+      levelSelectContainer.style.display = "block";
+    }
+  </script>
+</body>
+</html>

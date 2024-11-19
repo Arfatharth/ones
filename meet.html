@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TriangleT - Collaborative Learning Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo"><a href="index.html"></a>TriangleT</div>
+        <ul class="nav-links">
+          <li><a href="members.html">Home</a></li>
+          <li><a href="dms.html">Dm's</a></li>
+          <li><a href="activity.html">Activity</a></li>
+          <li><a href="booKmarK.html">BooKmarK</a></li>
+          <li><a href="meet.html">Meet</a></li>
+          <!-- Profile Icon and Dropdown Menu -->
+<li class="profile">
+  <a href="javascript:void(0)" id="profileIcon">
+    <div class="profile-icon">P</div>
+  </a>
+  <!-- Profile Dropdown Menu -->
+  <div class="profile-dropdown" id="profileDropdown">
+    <div class="profile-info">
+      <p><strong>Arfath Kiann</strong></p>
+      <p>arfath@gmail.com</p>
+    </div>
+    <a href="index.html"><button id="logoutBtn">Logout</button></a>
+  </div>
+</li>
+
+
+
+
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- Video Meeting Section -->
+  <section class="meeting">
+    <div class="container">
+      <iframe 
+        src="videosdk-rtc-javascript-sdk-example/index.html"
+        width="110%" 
+        height="600px" 
+        frameborder="0"
+        allow="camera; microphone; fullscreen">
+      </iframe>
+    </div>
+  </section>
+  
+  <script src="meeting.js"></script>
+  <script>
+    // JavaScript to toggle profile dropdown
+const profileIcon = document.getElementById("profileIcon");
+const profileDropdown = document.getElementById("profileDropdown");
+const logoutBtn = document.getElementById("logoutBtn");
+
+// Toggle the profile dropdown
+profileIcon.addEventListener("click", () => {
+  profileDropdown.classList.toggle("show");
+});
+
+// Simulate logout
+logoutBtn.addEventListener("click", () => {
+  alert("Logged out!");
+  // You can add actual logout functionality here
+});
+
+// Close the dropdown if clicked outside
+window.addEventListener("click", (event) => {
+  if (!profileIcon.contains(event.target)) {
+    profileDropdown.classList.remove("show");
+  }
+});
+
+  </script>
+</body>
+</html>
+</body>
+</html>
