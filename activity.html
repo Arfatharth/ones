@@ -5,7 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TriangleT - Collaborative Learning Platform</title>
   <link rel="stylesheet" href="styles.css">
-  
+  <style>
+   
+    .progress-bar {
+      margin: 10px 0;
+      background: #ddd;
+      border-radius: 5px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .progress {
+      background: #605dec;
+      height: 100%;
+    }
+    .add-task-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #433ec4;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 400px;
+    }
+    .modal-header {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .close-modal {
+      float: right;
+      cursor: pointer;
+    }
+    .file-upload {
+      margin-bottom: 10px;
+    }
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-percentage {
+      font-weight: bold;
+    }
+    .edit-icon {
+      cursor: pointer;
+      font-size: 16px;
+      color: #433ec4;
+      margin-left: 10px;
+    }
+    .task-done-btn {
+      padding: 5px 10px;
+      background-color: #ff4e4e;
+      color: white;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -19,21 +94,6 @@
           <li><a href="activity.html">Activity</a></li>
           <li><a href="booKmarK.html">BooKmarK</a></li>
           <li><a href="meet.html">Meet</a></li>
-          <!-- Profile Icon and Dropdown Menu -->
-<li class="profile">
-  <a href="javascript:void(0)" id="profileIcon">
-    <div class="profile-icon">P</div>
-  </a>
-  <!-- Profile Dropdown Menu -->
-  <div class="profile-dropdown" id="profileDropdown">
-    <div class="profile-info">
-      <p><strong>John Doe</strong></p>
-      <p>john@example.com</p>
-    </div>
-    <button id="logoutBtn">Logout</button>
-  </div>
-</li>
-
 
 
         </ul>
@@ -68,19 +128,38 @@
       <!-- Upcoming Tasks / Deadlines -->
       <div class="upcoming-tasks">
         <h3>Upcoming Tasks & Deadlines</h3>
-        <div class="task-item">
-          <span class="task-title">Research on AI Ethics</span>
-          <div class="progress-bar">
-            <div class="progress" style="width: 60%;"></div>
-          </div>
-          <span class="due-date">Due: 12/12/2024</span>
+        <div>
+           <!-- Add Task Button -->
+    <button class="add-task-btn" id="addTaskBtn">Add Task</button>
+
+    <!-- Task List -->
+    <div id="taskList"></div>
         </div>
-        <div class="task-item">
-          <span class="task-title">AI Algorithm Development</span>
-          <div class="progress-bar">
-            <div class="progress" style="width: 40%;"></div>
+        
+
+        <div class="modal" id="taskModal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span id="modalTitle">Add New Task</span>
+              <span class="close-modal" id="closeModal">✖</span>
+            </div>
+            <form id="taskForm">
+              <div>
+                <label for="taskName">Task Name</label>
+                <input type="text" id="taskName" required />
+              </div>
+              <div>
+                <label for="dueDate">Due Date</label>
+                <input type="date" id="dueDate" required />
+              </div>
+              <div class="file-upload">
+                <label for="fileUpload">Upload File</label>
+                <input type="file" id="fileUpload" />
+              </div>
+              <button type="submit" class="add-task-btn">Save Task</button>
+            </form>
+            <button id="taskDoneBtn" class="task-done-btn" style="display: none;">Task Done</button>
           </div>
-          <span class="due-date">Due: 15/12/2024</span>
         </div>
       </div>
 
@@ -115,30 +194,5 @@
   </footer>
 
   <script src="activity.js"></script>
-  <script>
-    // JavaScript to toggle profile dropdown
-const profileIcon = document.getElementById("profileIcon");
-const profileDropdown = document.getElementById("profileDropdown");
-const logoutBtn = document.getElementById("logoutBtn");
-
-// Toggle the profile dropdown
-profileIcon.addEventListener("click", () => {
-  profileDropdown.classList.toggle("show");
-});
-
-// Simulate logout
-logoutBtn.addEventListener("click", () => {
-  alert("Logged out!");
-  // You can add actual logout functionality here
-});
-
-// Close the dropdown if clicked outside
-window.addEventListener("click", (event) => {
-  if (!profileIcon.contains(event.target)) {
-    profileDropdown.classList.remove("show");
-  }
-});
-
-  </script>
 </body>
 </html>
