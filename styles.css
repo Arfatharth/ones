@@ -1213,3 +1213,86 @@ button:active {
 .btn:hover {
   background-color: #218838;
 }
+
+/* Style for the slider container */
+.slider-container {
+  position: relative;
+  width: 100px;
+  height: 30px;
+  background-color: #ddd;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Style for the slider button */
+.slider-button {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: left 0.3s;
+  text-align: center;
+  line-height: 24px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+}
+
+/* When the slider is active */
+.slider-container.active {
+  background-color: #c32d2d; /* Green color when 'Busy' */
+}
+
+/* When the slider is inactive */
+.slider-container.inactive {
+  background-color: #47b34e; /* Blue color when 'Learning' */
+}
+#sliderContainer {
+  display: block;  /* Ensure it's visible */
+}
+
+.status {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status.learning {
+  background-color: green;
+}
+
+.status.busy {
+  background-color: red;
+}
+
+.status.offline {
+  background-color: grey;
+}
+
+
+    .status {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .status.learning {
+      background-color: green;
+    }
+
+    .status.busy {
+      background-color: red;
+    }
+
+    .status.offline {
+      background-color: grey;
+    }
+
+    /* Add any other necessary styling */
+  
