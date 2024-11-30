@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TriangleT - Collaborative Learning Platform</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
   <!-- Header -->
@@ -77,6 +78,14 @@
     </div>
 
     <!-- Math Game -->
+    <button id="game-icon"><i class="fas fa-gamepad"></i></button>
+
+    <!-- Game Popup -->
+    <div id="overlay"></div>
+    <div id="game-popup">
+      <button class="close-btn" id="closeGamePopup">&times;</button>
+      <h2>Games</h2>
+
     <section id="math-game">
       <h2>Math Game: Multi-Level Challenge</h2>
       <div id="level-select">
@@ -312,6 +321,35 @@
     function restartTechGame() {
       techQuizContainer.style.display = "none";
       techLevelSelectContainer.style.display = "block";
+    }
+
+    const gameIcon = document.getElementById("game-icon");
+    const gamePopup = document.getElementById("game-popup");
+    const overlay = document.getElementById("overlay");
+    const closeGamePopup = document.getElementById("closeGamePopup");
+
+    // Show the game popup
+    gameIcon.addEventListener("click", () => {
+      gamePopup.style.display = "block";
+      overlay.style.display = "block";
+    });
+
+    // Close the game popup
+    closeGamePopup.addEventListener("click", () => {
+      gamePopup.style.display = "none";
+      overlay.style.display = "none";
+    });
+
+    // Close popup when clicking outside
+    overlay.addEventListener("click", () => {
+      gamePopup.style.display = "none";
+      overlay.style.display = "none";
+    });
+
+    // Game logic
+    function startGame(gameType, level) {
+      alert(`Starting ${gameType} game at level ${level}`);
+      // Add further game logic here
     }
   </script>
 </body>
