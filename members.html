@@ -14,13 +14,21 @@
       <nav>
         <div class="logo">TriangleT</div>
         <ul class="nav-links">
+          <li>
+            <!-- Slider -->
+            <div class="slider-container inactive" id="sliderContainer">
+              <div class="slider-button" id="sliderButton">L</div>
+            </div>
+          </li>
           <li><a href="members.html">Home</a></li>
           <li><a href="dms.html">Dm's</a></li>
           <li><a href="activity.html">Activity</a></li>
           <li><a href="booKmarK.html">BooKmarK</a></li>
           <li><a href="meet.html">Meet</a></li>
           <li class="profile">
-            <a href="javascript:void(0)" id="profileIcon"><div class="profile-icon">P</div></a>
+            <a href="javascript:void(0)" id="profileIcon">
+              <div class="profile-icon">P</div>
+            </a>
             <!-- Profile Dropdown Menu -->
             <div class="profile-dropdown" id="profileDropdown">
               <div class="profile-info">
@@ -38,21 +46,17 @@
   <section id="members" class="members">
     <div class="container">
       <h2 class="section-title">Team Members</h2>
-      <!-- Add Member Button -->
       <button id="addMemberBtn" class="add-member-btn">+ Add Member</button>
-  
-      <!-- Members List -->
       <table class="members-table">
         <thead>
           <tr>
             <th>#</th>
             <th>Name</th>
             <th>Semester</th>
+            <th>Status</th>
           </tr>
         </thead>
-        <tbody id="membersList">
-          <!-- Dynamic rows will be added here -->
-        </tbody>
+        <tbody id="membersList"></tbody>
       </table>
     </div>
 
@@ -76,16 +80,17 @@
         </form>
       </div>
     </div>
+  </section>
+  <!-- Game Section -->
+  <button id="game-icon"><i class="fas fa-gamepad"></i></button>
+
+  <!-- Game Popup -->
+  <div id="overlay"></div>
+  <div id="game-popup">
+    <button class="close-btn" id="closeGamePopup">&times;</button>
+    <h2>Games</h2>
 
     <!-- Math Game -->
-    <button id="game-icon"><i class="fas fa-gamepad"></i></button>
-
-    <!-- Game Popup -->
-    <div id="overlay"></div>
-    <div id="game-popup">
-      <button class="close-btn" id="closeGamePopup">&times;</button>
-      <h2>Games</h2>
-
     <section id="math-game">
       <h2>Math Game: Multi-Level Challenge</h2>
       <div id="level-select">
@@ -130,33 +135,18 @@
     </section>
   </section>
 
-  <script src="members.js"></script>
+  </div>
+
   <script>
-    // JavaScript to toggle profile dropdown
-    const profileIcon = document.getElementById("profileIcon");
-    const profileDropdown = document.getElementById("profileDropdown");
-    const logoutBtn = document.getElementById("logoutBtn");
 
-    // Toggle the profile dropdown
-    profileIcon.addEventListener("click", () => {
-      profileDropdown.classList.toggle("show");
-    });
 
-    // Simulate logout
-    logoutBtn.addEventListener("click", () => {
-      alert("Logged out!");
-      // You can add actual logout functionality here
-    });
+ const defaultMembers = [
+      { name: "You", semester: "N/A", status: "offline" }, // Default member
+    ];
 
-    // Close the dropdown if clicked outside
-    window.addEventListener("click", (event) => {
-      if (!profileIcon.contains(event.target)) {
-        profileDropdown.classList.remove("show");
-      }
-    });
 
-    // Math Game JavaScript
-    const mathQuestions = {
+ // Math Game JavaScript
+ const mathQuestions = {
       1: [
         { question: "2 + 2", options: [3, 4, 5, 6], correct: 1 },
         { question: "3 + 5", options: [6, 7, 8, 9], correct: 2 }
@@ -322,35 +312,140 @@
       techQuizContainer.style.display = "none";
       techLevelSelectContainer.style.display = "block";
     }
+    
+    // Profile Dropdown Toggle
+    const profileIcon = document.getElementById("profileIcon");
+    const profileDropdown = document.getElementById("profileDropdown");
+    const logoutBtn = document.getElementById("logoutBtn");
 
+    profileIcon.addEventListener("click", () => {
+      profileDropdown.classList.toggle("show");
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      alert("Logged out!");
+      // Add actual logout functionality here
+    });
+
+    window.addEventListener("click", (event) => {
+      if (!profileIcon.contains(event.target)) {
+        profileDropdown.classList.remove("show");
+      }
+    });
+
+    // Slider Toggle
+    const sliderContainer = document.getElementById("sliderContainer");
+    const sliderButton = document.getElementById("sliderButton");
     const gameIcon = document.getElementById("game-icon");
-    const gamePopup = document.getElementById("game-popup");
+
+    sliderContainer.addEventListener("click", function () {
+      if (sliderContainer.classList.contains("inactive")) {
+        sliderContainer.classList.remove("inactive");
+        sliderContainer.classList.add("active");
+        sliderButton.style.left = "70px";
+        sliderButton.innerText = "B";
+        gameIcon.style.display = "none"; // Hide game icon when in Busy mode
+      } else {
+        sliderContainer.classList.remove("active");
+        sliderContainer.classList.add("inactive");
+        sliderButton.style.left = "0";
+        sliderButton.innerText = "L";
+        gameIcon.style.display = "inline-block"; // Show game icon when in Learning mode
+      }
+    });
+
+    // Game Popup Toggle
     const overlay = document.getElementById("overlay");
+    const gamePopup = document.getElementById("game-popup");
     const closeGamePopup = document.getElementById("closeGamePopup");
 
-    // Show the game popup
     gameIcon.addEventListener("click", () => {
       gamePopup.style.display = "block";
       overlay.style.display = "block";
     });
 
-    // Close the game popup
     closeGamePopup.addEventListener("click", () => {
       gamePopup.style.display = "none";
       overlay.style.display = "none";
     });
 
-    // Close popup when clicking outside
     overlay.addEventListener("click", () => {
       gamePopup.style.display = "none";
       overlay.style.display = "none";
     });
 
-    // Game logic
-    function startGame(gameType, level) {
-      alert(`Starting ${gameType} game at level ${level}`);
-      // Add further game logic here
+    // Add Member Modal
+    const addMemberBtn = document.getElementById("addMemberBtn");
+    const addMemberModal = document.getElementById("addMemberModal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const addMemberForm = document.getElementById("addMemberForm");
+    const membersList = document.getElementById("membersList");
+    let memberCount = 0;
+
+    const savedMembers = JSON.parse(localStorage.getItem("membersData")) || [];
+
+    
+    function renderMembers() {
+      membersList.innerHTML = ""; // Clear current members
+      savedMembers.forEach((member, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${member.name}</td>
+          <td>${member.semester}</td>
+          <td><span class="status ${member.status}"></span></td> <!-- Display status -->
+        `;
+        membersList.appendChild(row);
+      });
     }
+
+    addMemberBtn.addEventListener("click", () => {
+      addMemberModal.style.display = "block";
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+      addMemberModal.style.display = "none";
+    });
+
+    addMemberForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const memberName = document.getElementById("memberName").value;
+      const memberSem = documenta.getElementById("memberSem").value;
+
+      savedMembers.push({ name: memberName, semester: memberSem });
+      localStorage.setItem("membersData", JSON.stringify(savedMembers));
+
+      renderMembers();
+      addMemberModal.style.display = "none";
+      addMemberForm.reset();
+    });
+
+    // Initial Render
+    renderMembers();
+    
   </script>
+
+<style>
+  .status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .status.learning {
+    background-color: green;
+  }
+
+  .status.busy {
+    background-color: red;
+  }
+
+  .status.offline {
+    background-color: grey;
+  }
+
+  /* Add any other necessary styling */
+</style>
 </body>
 </html>
