@@ -499,22 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Retrieve saved members from localStorage
   const savedMembers = JSON.parse(localStorage.getItem("membersData")) || [];
 
-  // Function to render members
-  function renderMembers() {
-    membersList.innerHTML = ""; // Clear the current list
-    memberCount = 0; // Reset count
 
-    savedMembers.forEach((member) => {
-      memberCount++;
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${memberCount}</td>
-        <td>${member.name}</td>
-        <td>${member.semester}</td>
-      `;
-      membersList.appendChild(row);
-    });
-  }
 
   // Save members to localStorage
   function saveMembers() {
